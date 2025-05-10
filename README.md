@@ -17,9 +17,11 @@
 ```
 learning-basic-python/
 ├── control_if_while_for.py     # Контрольная по условиям и циклам
+├── login_password_validator.py #Домашнее задание по написанию валидатора логина/пароля
 ├── control_strings_lists.py    # (в будущем) Строки, списки
 ├── control_functions_api.py    # (в будущем) Функции и API
 ├── README.md                   # Описание проекта
+
 ```
 
 ---
