@@ -17,7 +17,7 @@
 learning-basic-python/
 ├── control_if_while_for.py         # Контрольная по условиям и циклам
 ├── validator_login_password.py     # Валидатор логина и пароля
-├── list_tasks.py                   # Задачи на списки
+├── list_lesson.py                   # Задачи на списки
 ├── control_strings_lists.py        # (в будущем) Строки и списки
 ├── control_functions_api.py        # (в будущем) Функции и API
 └── README.md                       # Описание проекта
