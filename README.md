@@ -19,6 +19,8 @@ learning-basic-python/
 ├── validator_login_password.py     # Валидатор логина и пароля
 ├── list_lesson.py                  # Задачи на списки
 ├── list_lesson_ch2.py              # Задачи на списки. День 2. задачи на max, min, remove, count, индексы, уникальность
+├── list_lesson_ch3.py              # Задачи на списки. Закрепление пройденного материала
+├── list_lesson_ch4.py              # Задачи на списки. Закрепление базовых методов, пройденного материала
 ├── control_strings_lists.py        # (в будущем) Строки и списки
 ├── control_functions_api.py        # (в будущем) Функции и API
 └── README.md                       # Описание проекта
