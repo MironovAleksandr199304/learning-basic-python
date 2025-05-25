@@ -97,8 +97,9 @@ if "user" in log and "email" in log and "id" in log:
         #если логин указан, проверяем дальше
         #разбиваем email на две части
         parts_email = parts_log[1].split(": ")
-        if "@" in parts_email: #проверка, что @ есть в емейле
-            name,domen = parts_email.split("@")
+        email_value = parts_email[1]  # сам адрес
+        if "@" in email_value:
+            name, domain = email_value.split("@")
             if len(name) > 2:
                 if name.isascii() and name.isalpha(): #изначально было решено через if name.search(r'[A-Za-z]'), после ревью поменял
                     #разбиваем id: 10a4 на id и value
