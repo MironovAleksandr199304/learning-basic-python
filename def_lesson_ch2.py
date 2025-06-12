@@ -59,7 +59,7 @@ print(final_price(1000, 20, 20))
 def count_correct(answers):
     return answers.count("OK")
 
-def test_result(answers, total_questions):
+def check_test_result(answers, total_questions):
     percent_correct = (count_correct(answers) / total_questions) * 100
     print(percent_correct)
     if percent_correct >= 70:
@@ -68,7 +68,7 @@ def test_result(answers, total_questions):
         return "Не сдано"
 
 answers = ["OK", "OK", "OK", "OK", "FAIL"]
-print(test_result(answers, 5))
+print(check_test_result(answers, 5))
 
 
 
