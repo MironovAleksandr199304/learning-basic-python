@@ -25,7 +25,9 @@ learning-basic-python/
 ├── string_lesson.py                # Контрольная работа по строкам и методам строк
 ├── control_strings_lists.py        # (в будущем) Строки и списки
 ├── control_functions_api.py        # (в будущем) Функции и API
+├── test_functions.py              # Юнит-тесты на функции с использованием pytest
 └── README.md                       # Описание проекта
+
 ```
 
 ## ✅ Пройденные темы
