@@ -21,7 +21,6 @@ def is_passed(grade):
     score = grade_to_score(grade)
     return score >= 3
 
-print(is_passed("удовлетворительно"))
 
 
 
@@ -40,7 +39,7 @@ def final_price(price, discount, vat_percent):
     discounted = apply_discount(price, discount)
     return discounted * (1 + vat_percent / 100)
 
-print(final_price(1000, 20, 20))
+print(final_price(10, 20, 20))
 
 
 
@@ -61,13 +60,12 @@ def count_correct(answers):
 
 def check_test_result(answers, total_questions):
     percent_correct = (count_correct(answers) / total_questions) * 100
-    print(percent_correct)
     if percent_correct >= 70:
         return "Сдано"
     else:
         return "Не сдано"
 
-answers = ["OK", "OK", "OK", "OK", "FAIL"]
+answers = ["OK", "OK", "FAIL", "FAIL", "FAIL"]
 print(check_test_result(answers, 5))
 
 

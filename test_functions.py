@@ -1,6 +1,9 @@
 from def_lesson_ch2 import grade_to_score, is_passed, final_price, apply_discount, check_test_result
 from def_lesson3 import parse_user_data
+from def_lesson4 import get_user_by_id
 from pytest import approx
+import requests
+import pytest
 # ### 2. ✅ `parse_user_data(data_str)`
 #
 # * Логическая проверка: словарь, строки, ключи
@@ -30,6 +33,16 @@ def test_is_passed():
     assert is_passed("плохо") is False
     assert is_passed("неизвестно") is False
 
+@pytest.mark.parametrize("grade,expected",[
+    ("отлично", True),
+    ("хорошо", True),
+    ("удовлетворительно", True),
+    ("плохо", False),
+    ("неизвестно", False)
+])
+def test_is_passed_parametrize(grade,expected):
+        assert is_passed(grade) is expected
+
 
 # 👉 Следующий шаг (по желанию)
 # Если хочешь — давай протестируем:
@@ -57,56 +70,42 @@ def test_apply_discount():
     assert apply_discount(3333, 10) == approx(2999.7)
     assert apply_discount(60343, 40) == approx(36205.8)
 
-# * Чистая арифметика, без НДС
-# * Идеально для закрепления `approx`
-#
-# ### 2. ✅ `parse_user_data(data_str)`
-#
-# * Логическая проверка: словарь, строки, ключи
-# * Хороший пример для `assert result == {...}`
+def test_get_user_by_id():
+    assert get_user_by_id(1)["name"] == "Alice"
+    assert get_user_by_id(999) is None
+    assert get_user_by_id(2)["name"] == "Bob"
+    assert get_user_by_id(2)["email"] == "bob@test.com"
+
+@pytest.mark.parametrize("user_id,field,expected",
+                         [
+                             (1,"email","alice@test.com"),
+                             (2,"name","Bob"),
+                             (1,"name","Alice"),
+                             (2, "email","bob@test.com")
+                         ])
+def test_get_user_by_id_parametrize(user_id,field,expected):
+    assert get_user_by_id(user_id)[field] == expected
+
+def test_post_then_get(base_url, headers, sample_post_payload):
+    """
+    Тест: создаем пост - получаем его по id, сверяем содержимое(в mock API это просто тренировка
+    логики)
+    """
+#1. Создаем пост
+    post_response = requests.post(f"{base_url}/posts",json=sample_post_payload)
+    assert  post_response.status_code == 201
+
+    post_data = post_response.json()
+    created_id = post_data["id"]
+
+#2. Получаем пост по id
+    get_response = requests.get(f"{base_url}/posts/{created_id}")
+    assert get_response.status_code == 200
+
+    get_data = get_response.json()
+
+    #сравниваем поля. совпадения не будет и это ок
+    assert "title" in get_data
+    assert isinstance(get_data["userId"],int)
 
 
-
-#
-# ### 3. ✅ `test_result(answers, total_questions)`
-#
-# * Там проценты, строки — можно протестить `"Сдано"` и `"Не сдано"`
-#
-# ---
-#
-# ## 📌 Предлагаю: протестим `parse_user_data`
-#
-# Вот функция, которую ты писал:
-#
-# ```python
-# def parse_user_data(data_str):
-#     result = {}
-#     parts = data_str.split(";")
-#     for pair in parts:
-#         key_value = pair.strip().split("=")
-#         if len(key_value) == 2:
-#             key, value = key_value
-#             result[key.strip()] = value.strip()
-#     return result
-# ```
-#
-# ---
-#
-# ## 🔍 Что можно проверить в тестах
-#
-# | Вход                                     | Ожидаемый результат                                       |
-# | ---------------------------------------- | --------------------------------------------------------- |
-# | `"login=alex;email=alex@test.com;id=42"` | `{"login": "alex", "email": "alex@test.com", "id": "42"}` |
-# | `""`                                     | `{}`                                                      |
-# | `"x=1;x=2"`                              | `{"x": "2"}` (дубликат — остаётся последнее)              |
-# | `"badpair;id=5"`                         | `{"id": "5"}` (мусор пропущен)                            |
-#
-# ---
-#
-# ## 💡 Твоя задача:
-#
-# * Создать `test_parse_user_data()`
-# * Сделать хотя бы **2–3 `assert`**
-# * Я посмотрю и дам ревью
-#
-# Готов?
