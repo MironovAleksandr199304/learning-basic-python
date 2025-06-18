@@ -26,6 +26,7 @@ learning-basic-python/
 ├── control_strings_lists.py        # (в будущем) Строки и списки
 ├── control_functions_api.py        # (в будущем) Функции и API
 ├── test_functions.py              # Юнит-тесты на функции с использованием pytest
+├── CRUD_api_homework.py             # Домашка по API: GET, POST, PUT, PATCH, DELETE
 └── README.md                       # Описание проекта
 
 ```
