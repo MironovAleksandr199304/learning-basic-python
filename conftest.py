@@ -25,3 +25,24 @@ def sample_post_payload():
         "body" : "тело из фикстуры",
         "userId": 777
     }
+
+@pytest.fixture
+def put_post_payload():
+    """
+    фикстура, возвращающая тело запроса для обновления поста
+    """
+    return{
+        "id" : 1,
+        "title" : "Обновленный заголовок",
+        "body" : "Обновленное тело",
+        "userId" : 999
+    }
+
+@pytest.fixture
+def patch_post_payload():
+    """
+    фикстура, возвращающая тело запроса для обновления через patch
+    """
+    return{
+        "title" : "обновляем только заголовок"
+    }

@@ -39,6 +39,7 @@ def create_post(title, body, user_id):
     response = requests.post(url, json=payload)
     return response
 
+
 def test_create_post_success():
     response = create_post("Тестовый заголовок","Содержимое поста",1)
     assert response.status_code == 201
@@ -81,3 +82,38 @@ def test_create_post_with_fixture(base_url, headers, sample_post_payload):
     assert data["title"] == sample_post_payload["title"]
     assert data["body"] == sample_post_payload["body"]
     assert data["userId"] == sample_post_payload["userId"]
+
+def test_put_post_with_fixture(base_url, headers, put_post_payload):
+    response = requests.put(f"{base_url}/posts/1", json=put_post_payload, headers=headers)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["title"] == "Обновленный заголовок"
+    assert data["body"] == "Обновленное тело"
+    assert data["userId"] == 999
+    assert data["id"] == 1
+    assert "title" in data
+    assert "body" in data
+    assert "userId" in data
+    assert "id" in data
+
+def test_patch_post_with_fixture(base_url, headers, patch_post_payload):
+    response = requests.patch(f"{base_url}/posts/1", json=patch_post_payload, headers=headers)
+    # Проверить:
+    # status_code == 200
+    # В ответе title — обновлён
+    # Остальные поля(userId, body, id)
+    # остались и имеют нужные типы
+    assert response.status_code == 200
+    data = response.json()
+    assert data["title"] == "обновляем только заголовок"
+    assert "body" in data
+    assert "userId" in data
+    assert "id" in data
+    assert isinstance(data["body"],str)
+    assert isinstance(data["id"],int)
+    assert isinstance(data["userId"],int)
+
+def test_delete_post(base_url):
+    response = requests.delete(f"{base_url}/posts/1")
+    assert response.status_code == 200
+    assert response.json() == {}
